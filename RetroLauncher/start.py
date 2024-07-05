@@ -1,13 +1,14 @@
-import subprocess
-import sys
 import os
+import sys
+import pip
 
+# Funktion zur Installation eines Pakets
 def install(package):
-    try:
-        subprocess.check_call([sys.executable, "-m", "pip", "install", package])
-    except subprocess.CalledProcessError as e:
-        print(f"Error installing package {package}: {e}")
-        sys.exit(1)
+    if hasattr(pip, 'main'):
+        pip.main(['install', package])
+    else:
+        from pip._internal import main as pipmain
+        pipmain(['install', package])
 
 # Beispiel: Installation des Pakets 'pygame'
 install('pygame')
@@ -16,6 +17,9 @@ import pgzrun
 
 from random import randint
 from time import time
+import time
+
+os.environ['SDL_VIDEO_WINDOW_POS'] = '0,25'
 
 WIDTH = 1535
 HEIGHT = 790
@@ -30,17 +34,17 @@ def intro1():
         f1 = 255
         
     screen.draw.filled_rect((Rect((617,245),(300,300))),(f1,f1*0.75,0))
-    screen.draw.text("R", center=(767,430), color=(0.2*f1,0,0.5*f1), fontsize=(300), fontname="minecraft")
-    screen.draw.text("RetroLauncher", midtop=(767,545), color=(0.5*f1,0.5*f1,0.5*f1), fontsize=(60), fontname="minecraft")
+    screen.draw.text("R",center=(767,430), color=(0.2*f1,0,0.5*f1),fontsize=(300),fontname="minecraft")
+    screen.draw.text("RetroLauncher",midtop=(767,545), color=(0.5*f1,0.5*f1,0.5*f1),fontsize=(60),fontname="minecraft")
 
 def intro2():
     global f1
     
     screen.draw.filled_rect((Rect((657,245),(1000,1000))),(0,0,0))
-    screen.draw.text("Y", center=(790,450), color=(0.5*min(255,f1),0.5*min(255,f1),0.5*min(255,f1)), fontsize=(300), fontname="minecraft", angle=25)
+    screen.draw.text("Y",center=(790,450), color=(0.5*min(255,f1),0.5*min(255,f1),0.5*min(255,f1)),fontsize=(300),fontname="minecraft",angle = 25)
     
     screen.draw.filled_rect((Rect((657,245),(60,300))),(0,0,0))
-    screen.draw.text("Yanis Engine", midtop=(767,545), color=(0.5*min(255,f1),0.5*min(255,f1),0.5*min(255,f1)), fontsize=(60), fontname="minecraft")
+    screen.draw.text("Yanis Engine",midtop=(767,545), color=(0.5*min(255,f1),0.5*min(255,f1),0.5*min(255,f1)),fontsize=(60),fontname="minecraft")
     screen.draw.filled_rect((Rect((657,245),(10,300))),(0,min(255,f1)*0.75,min(255,f1)))
     screen.draw.filled_rect((Rect((707,245),(10,300))),(min(255,f1),min(255,f1)*0.75,0))
     
@@ -48,17 +52,17 @@ def draw():
     global f1, x
     screen.clear()
     screen.fill("black")
-    screen.draw.text("press any button to continue", midtop=(767,145), color=(255,255,255), fontsize=(60), fontname="minecraft")
+    screen.draw.text("press any button to continue",midtop=(767,145), color=(255,255,255),fontsize=(60),fontname="minecraft")
 
     if x == 1:
         intro1()
     if x == 0:
         intro2()
-    
+
 def update():
     global f1, x
     if f1 > 300:
-        x += 1
+        x +=1
         f1 = 0
     f1 += 2
     
@@ -80,5 +84,5 @@ def on_key_down(key):
 def on_mouse_down():
     global x
     x += 1
-    
+
 pgzrun.go()
