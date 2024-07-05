@@ -1,6 +1,6 @@
 import os
 os.environ['SDL_VIDEO_WINDOW_POS'] = '0,25'
-import pgzrun
+
 from random import randint
 
 
