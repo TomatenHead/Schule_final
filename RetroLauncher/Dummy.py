@@ -1,7 +1,7 @@
 import os
 os.environ['SDL_VIDEO_WINDOW_POS'] = '0,25'
 
-import pgzrun
+
 import subprocess
 import sys
 def install(package):
