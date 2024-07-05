@@ -112,11 +112,6 @@ if game == "pong":
             A_pressed = True 
         if key == key.D:
             D_pressed = True
-        else:
-            file = "//GY100040/Yanise/Desktop/RetroLauncher/main.py"
-            os.system(f"python {file}")
-            os.system(f"python main.py")
-            os.close("//GY100040/Yanise/Desktop/RetroLauncher/BreakingBricks.py")
             
     def on_key_up(key):
         global A_pressed, D_pressed
