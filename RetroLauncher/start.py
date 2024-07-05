@@ -1,23 +1,24 @@
-import os
+import subprocess
 import sys
-import pip
+import os
 
-# Funktion zur Installation eines Pakets
 def install(package):
-    if hasattr(pip, 'main'):
-        pip.main(['install', package])
-    else:
-        from pip._internal import main as pipmain
-        pipmain(['install', package])
+    try:
+        subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+    except subprocess.CalledProcessError as e:
+        print(f"Error installing package {package}: {e}")
+        sys.exit(1)
 
-# Beispiel: Installation des Pakets 'pygame'
-install('pygame')
+# Überprüfen, ob pgzrun installiert ist, und es gegebenenfalls installieren
+try:
+    import pgzrun
+except ImportError:
+    install('pgzrun')
+    import pgzrun
 
-import pgzrun
-
+# Der Rest deines Skripts
 from random import randint
 from time import time
-import time
 
 os.environ['SDL_VIDEO_WINDOW_POS'] = '0,25'
 
@@ -47,7 +48,7 @@ def intro2():
     screen.draw.text("Yanis Engine",midtop=(767,545), color=(0.5*min(255,f1),0.5*min(255,f1),0.5*min(255,f1)),fontsize=(60),fontname="minecraft")
     screen.draw.filled_rect((Rect((657,245),(10,300))),(0,min(255,f1)*0.75,min(255,f1)))
     screen.draw.filled_rect((Rect((707,245),(10,300))),(min(255,f1),min(255,f1)*0.75,0))
-    
+
 def draw():
     global f1, x
     screen.clear()
