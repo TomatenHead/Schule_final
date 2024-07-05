@@ -1,6 +1,15 @@
 import os
 os.environ['SDL_VIDEO_WINDOW_POS'] = '0,25'
+
+
+import subprocess
+import sys
+def install(package):
+    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+install('pygame')
 import pgzrun
+
+
 from random import randint
 from time import time
 import time
