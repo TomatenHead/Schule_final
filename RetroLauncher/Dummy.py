@@ -1,5 +1,12 @@
 import os
 os.environ['SDL_VIDEO_WINDOW_POS'] = '0,25'
+
+import pgzrun
+import subprocess
+import sys
+def install(package):
+    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+install('pygame')
 import pgzrun
 
 WIDTH = 1535
