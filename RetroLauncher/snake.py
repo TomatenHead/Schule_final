@@ -3,7 +3,15 @@ os.environ['SDL_VIDEO_WINDOW_POS'] = '0,25'
 import pgzrun
 from random import randint
 
-WIDTH = 1535
+
+import subprocess
+import sys
+def install(package):
+    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+install('pygame')
+import pgzrun
+
+IDTH = 1535
 HEIGHT = 790
 GRID_SIZE = 37
 
